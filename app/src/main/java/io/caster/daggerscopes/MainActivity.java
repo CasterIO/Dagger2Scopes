@@ -13,6 +13,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import io.caster.daggerscopes.screens.profile.ProfileFragment;
+import io.caster.daggerscopes.screens.settings.SettingsFragment;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -40,6 +43,10 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        // Select the first item in the home view
+        navigationView.getMenu().getItem(0).setChecked(true);
     }
 
     @Override
@@ -80,14 +87,28 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_user) {
-            // Show the user fragment
+        if (id == R.id.nav_profile) {
+            navigateToProfileFragment();
         } else if (id == R.id.nav_settings) {
-
+            navigateToSettingsFragment();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void navigateToProfileFragment() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.content_main, ProfileFragment.newInstance(), ProfileFragment.class.getSimpleName())
+                .commit();
+    }
+
+    private void navigateToSettingsFragment() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.content_main, SettingsFragment.newInstance(), SettingsFragment.class.getSimpleName())
+                .commit();
     }
 }
