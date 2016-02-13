@@ -3,6 +3,7 @@ package io.caster.daggerscopes;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.preference.PreferenceManager;
 
 import dagger.Module;
@@ -20,6 +21,11 @@ public class AndroidModule {
     @Provides
     public Context providesContext() {
         return context;
+    }
+
+    @Provides
+    public Resources providesResources(Context context) {
+        return context.getResources();
     }
 
     @Provides
